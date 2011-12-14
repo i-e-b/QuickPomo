@@ -30,10 +30,23 @@ namespace QuickPomo {
 			var newPomo = new NewPommo();
 			newPomo.NewPomo += SetNewPomo;
 			newPomo.EndCurrentPomo += EndCurrentCurrentPomo;
-			var p = Location;
-			p.Offset(0, Height + 20);
-			newPomo.Show();
 			lastNewScreen = newPomo;
+			FitFormNearSelf(newPomo);
+		}
+
+		void FitFormNearSelf(Form newPomo) {
+			var p = Location;
+			var screen = Screen.GetBounds(this);
+
+			var offset_bottom = (p.Y + Height + newPomo.Height + 20);
+
+			if (offset_bottom < screen.Bottom) {
+				p.Offset(0, Height + 8);
+			} else {
+				p.Offset(0, -newPomo.Height - 8);
+			}
+
+			newPomo.Show();
 			newPomo.Location = p;
 		}
 
